@@ -12,7 +12,7 @@ buildscript {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.3"
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
@@ -48,6 +48,6 @@ dependencies {
     })
 
     testImplementation 'junit:junit:4.12'
-    compile project(path: ':javalib')
-    compile project(path: ':androidlib')
+    implementation project(path: ':javalib')
+    implementation project(path: ':androidlib')
 }
