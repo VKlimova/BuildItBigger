@@ -8,13 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.amargodigits.androidlib.ShowJokeActivity;
-import com.amargodigits.javalib.JokeSupply;
+import com.udacity.androidlib.*;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IDownloadListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "friend"));
+        new EndpointsAsyncTask(this).execute(new Pair<Context, String>(this, "friend"));
     }
 
     public static void showJoke(Context mContext, String jokeTxt) {
@@ -55,4 +53,9 @@ public class MainActivity extends AppCompatActivity {
         mContext.startActivity(intent);
     }
 
+    @Override
+    public void downloadCompleted(String jokeTxt) {
+        Context mContext=this;
+        showJoke(mContext, jokeTxt);
+    }
 }

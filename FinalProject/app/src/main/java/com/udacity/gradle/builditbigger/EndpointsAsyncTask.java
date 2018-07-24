@@ -1,5 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
+// Example taken from:
+// https://web.archive.org/web/20170618224249/http://www.making-software.com/2012/10/31/testable-android-asynctask/
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.util.Pair;
@@ -14,9 +16,22 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String>  {
+    private IDownloadListener downloadListener;
     private static MyApi myApiService = null;
     private Context context;
+
+    public EndpointsAsyncTask(IDownloadListener downloadListener) {
+        this.downloadListener = downloadListener;
+    }
+
+//    public EndpointsAsyncTask() {
+//    }
+//
+//    public void download() {
+////        new InnerAsyncTask().execute();
+//    }
+
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -27,7 +42,7 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
                     // - turn off compression when running against local devappserver
-//                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                    // .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                     .setRootUrl("http://192.168.88.20:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
@@ -55,7 +70,8 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
 //        Log.i("EndpointsLog", "EndpointsAsyncTask onPostExecute");
 //        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
 //        Log.i("EndpointsLog", "EndpointsAsyncTask onPostExecute result=" + result);
+//        MainActivity.showJoke(context, result);
+       downloadListener.downloadCompleted(result);
 
-        MainActivity.showJoke(context, result);
     }
 }

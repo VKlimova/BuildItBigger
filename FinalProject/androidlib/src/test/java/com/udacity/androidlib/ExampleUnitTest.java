@@ -1,4 +1,4 @@
-package com.amargodigits.androidlib;
+package com.udacity.androidlib;
 
 import org.junit.Test;
 

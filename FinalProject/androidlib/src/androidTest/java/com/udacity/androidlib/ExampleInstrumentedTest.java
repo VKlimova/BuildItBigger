@@ -1,9 +1,8 @@
-package com.amargodigits.androidlib;
+package com.udacity.androidlib;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -21,6 +20,9 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.amargodigits.androidlib.test", appContext.getPackageName());
+        assertEquals("com.udacity.androidlib.test", appContext.getPackageName());
     }
+
+
 }
+

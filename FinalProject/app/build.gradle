@@ -11,17 +11,16 @@ buildscript {
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,20 +33,57 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api 'com.android.support:multidex:1.0.3'
+    api fileTree(dir: 'libs', include: ['*.jar'])
     endpointsServer project(path: ':backend', configuration: 'endpoints')
-    api 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.google.android.gms:play-services-ads:11.8.0'
-    implementation 'com.google.api-client:google-api-client:1.23.0'
-    implementation 'com.google.http-client:google-http-client-android:1.23.0'
-    implementation 'com.google.code.findbugs:jsr305:3.0.1'
+    api 'com.android.support:appcompat-v7:27.1.1'
+    api 'com.google.android.gms:play-services-ads:11.8.0'
+    api 'com.google.api-client:google-api-client:1.23.0'
+    api 'com.google.http-client:google-http-client-android:1.23.0'
+    api 'com.google.code.findbugs:jsr305:3.0.1'
+api 'com.android.support:support-media-compat:27.1.1'
+    api 'com.android.support:support-v4:27.1.1'
 
+//    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
+//
+//    androidTestCompile ('com.squareup:fest-android:1.0.8') {
+//        exclude group: 'com.android.support'
+//    }
+    androidTestImplementation 'com.android.support:support-annotations:27.1.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    // Android runner and rules support
+    androidTestImplementation 'com.android.support.test:runner:0.5'
+    androidTestImplementation 'com.android.support.test:rules:0.5'
 
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.0') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
     testImplementation 'junit:junit:4.12'
-    implementation project(path: ':javalib')
-    implementation project(path: ':androidlib')
+    api project(path: ':javalib')
+    api project(path: ':androidlib')
+    androidTestImplementation project(path: ':javalib')
+    androidTestImplementation  project(path: ':androidlib')
+}
+
+// Spent several days with dependencies. At last find this code on stackoverflow:
+// https://stackoverflow.com/a/49402092/8796408
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '27.1.1'
+            }
+        } else if (requested.group == "com.google.android.gms") {
+            details.useVersion '15.0.0'
+        } else if (requested.group == "com.google.firebase") {
+            details.useVersion '15.0.0'
+        }
+    }
 }

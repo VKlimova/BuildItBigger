@@ -1,6 +1,6 @@
 package com.udacity.gradle.builditbigger.backend;
 
-import com.amargodigits.javalib.JokeSupply;
+import com.udacity.javalib.JokeSupply;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
