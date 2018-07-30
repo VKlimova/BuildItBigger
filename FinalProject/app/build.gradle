@@ -30,6 +30,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+// Specifies one flavor dimensions.
+    flavorDimensions "tier"
+    productFlavors {
+        free {
+            dimension "tier"
+            applicationId "com.udacity.gradle.builditbigger.free"
+            buildConfigField 'boolean', 'SHOW_ADDS', 'true'
+        }
+        paid {
+            dimension "tier"
+            applicationId "com.udacity.gradle.builditbigger.paid"
+            buildConfigField 'boolean', 'SHOW_ADDS', 'false'
+        }
+    }
+
 }
 
 dependencies {
@@ -37,20 +52,12 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     endpointsServer project(path: ':backend', configuration: 'endpoints')
     api 'com.android.support:appcompat-v7:27.1.1'
-    api 'com.google.android.gms:play-services-ads:11.8.0'
+    api 'com.google.android.gms:play-services-ads:15.0.0'
     api 'com.google.api-client:google-api-client:1.23.0'
     api 'com.google.http-client:google-http-client-android:1.23.0'
     api 'com.google.code.findbugs:jsr305:3.0.1'
-api 'com.android.support:support-media-compat:27.1.1'
+    api 'com.android.support:support-media-compat:27.1.1'
     api 'com.android.support:support-v4:27.1.1'
-
-//    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
-//
-//    androidTestCompile ('com.squareup:fest-android:1.0.8') {
-//        exclude group: 'com.android.support'
-//    }
     androidTestImplementation 'com.android.support:support-annotations:27.1.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
@@ -67,7 +74,7 @@ api 'com.android.support:support-media-compat:27.1.1'
     api project(path: ':javalib')
     api project(path: ':androidlib')
     androidTestImplementation project(path: ':javalib')
-    androidTestImplementation  project(path: ':androidlib')
+    androidTestImplementation project(path: ':androidlib')
 }
 
 // Spent several days with dependencies. At last find this code on stackoverflow:

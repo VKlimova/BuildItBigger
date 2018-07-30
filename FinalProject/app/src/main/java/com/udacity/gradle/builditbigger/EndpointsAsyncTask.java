@@ -6,8 +6,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.util.Pair;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -24,14 +22,6 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     public EndpointsAsyncTask(IDownloadListener downloadListener) {
         this.downloadListener = downloadListener;
     }
-
-//    public EndpointsAsyncTask() {
-//    }
-//
-//    public void download() {
-////        new InnerAsyncTask().execute();
-//    }
-
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -67,10 +57,6 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
 
     @Override
     protected void onPostExecute(String result) {
-//        Log.i("EndpointsLog", "EndpointsAsyncTask onPostExecute");
-//        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-//        Log.i("EndpointsLog", "EndpointsAsyncTask onPostExecute result=" + result);
-//        MainActivity.showJoke(context, result);
        downloadListener.downloadCompleted(result);
 
     }
