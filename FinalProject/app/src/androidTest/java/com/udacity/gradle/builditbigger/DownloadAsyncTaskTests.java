@@ -1,9 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.annotation.UiThreadTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
